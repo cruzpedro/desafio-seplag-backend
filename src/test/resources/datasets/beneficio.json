@@ -1,0 +1,32 @@
+{
+  "tb_tramitacao": [
+    {
+      "id": "2",
+      "nome": "Análise Administrativa"
+    }
+  ],
+  "tb_categoria": [
+    {
+      "id": "1",
+      "descricao": "Identificação"
+    }
+  ],
+  "tb_usuario": [
+    {
+      "id": "1",
+      "nome": "Usuario",
+      "cpf": "111.111.111-11",
+      "orgao": "Órgão",
+      "matricula": "11"
+    }
+  ],
+  "tb_beneficio": [
+    {
+      "id": "1",
+      "tramitacao_id": "2",
+      "categoria_id": "1",
+      "usuario_id": "1",
+      "arquivo": "arquivo.pdf"
+    }
+  ]
+}

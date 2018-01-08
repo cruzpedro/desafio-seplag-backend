@@ -1,0 +1,20 @@
+{
+  "tb_categoria": [
+    {
+      "id": "1",
+      "descricao": "Identificacao"
+    },
+    {
+      "id": "2",
+      "descricao": "Vida Funcional"
+    },
+    {
+      "id": "3",
+      "descricao": "Contagem de tempo"
+    },
+    {
+      "id": "4",
+      "descricao": "Remuneracao/Proventos"
+    }
+  ]
+}

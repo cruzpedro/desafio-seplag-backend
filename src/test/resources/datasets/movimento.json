@@ -1,0 +1,45 @@
+{
+  "tb_tramitacao": [
+    {
+      "id": "1",
+      "nome": "Instricao Inicial do Processo"
+    },
+    {
+      "id": "2",
+      "nome": "Analise Administrativa"
+    }
+  ],
+  "tb_categoria": [
+    {
+      "id": "1",
+      "descricao": "Identificacao"
+    }
+  ],
+  "tb_usuario": [
+    {
+      "id": "1",
+      "nome": "Usuario",
+      "cpf": "111.111.111-11",
+      "orgao": "Orgao",
+      "matricula": "11"
+    }
+  ],
+  "tb_beneficio": [
+    {
+      "id": "1",
+      "tramitacao_id": "2",
+      "categoria_id": "1",
+      "usuario_id": "1",
+      "arquivo": "arquivo.pdf"
+    }
+  ],
+  "tb_movimento": [
+    {
+      "id": "1",
+      "data": "2018-01-01 00:00:00",
+      "tramitacaoorigem_id": "1",
+      "tramitacaodestino_id": "2",
+      "beneficio_id": "1"
+    }
+  ]
+}

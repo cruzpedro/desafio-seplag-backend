@@ -1,0 +1,16 @@
+{
+  "tb_tramitacao": [
+    {
+      "id": "1",
+      "nome": "Instricao Inicial do Processo"
+    },
+    {
+      "id": "2",
+      "nome": "Analise Administrativa"
+    },
+    {
+      "id": "3",
+      "nome": "Analise Juridica"
+    }
+  ]
+}
