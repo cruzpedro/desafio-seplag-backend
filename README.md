@@ -71,6 +71,19 @@ Datasource de Testes
 </datasource>
 ```
 
+## Configuração diretorio de arquivos ##
+
+Adicionar no standalone do wildfly:
+```xml
+<host name="default-host" alias="localhost">
+    <location name="/desafio-seplag-backend/arquivos" handler="arquivos-content"/>
+</host>
+
+<handlers>
+    <file name="arquivos-content" directory-listing="true" path="${jboss.home.dir}/standalone/tmp/vfs/arquivos"/>
+</handlers>
+```
+
 ## Carga no banco de dados ##
 
 No projeto existe um arquivo chamado load.sql, usado para dar carga no banco.

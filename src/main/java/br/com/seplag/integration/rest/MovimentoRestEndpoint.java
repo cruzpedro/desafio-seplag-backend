@@ -1,7 +1,9 @@
 package br.com.seplag.integration.rest;
 
 import br.com.seplag.exception.BusinessException;
+import br.com.seplag.model.Beneficio;
 import br.com.seplag.model.Movimento;
+import br.com.seplag.service.BeneficioService;
 import br.com.seplag.service.MovimentoService;
 
 import javax.ejb.Stateless;
@@ -18,6 +20,9 @@ public class MovimentoRestEndpoint {
 
     @Inject
     private MovimentoService service;
+
+    @Inject
+    private BeneficioService beneficioService;
 
     @POST
     public Response save(@Valid Movimento movimento) {
@@ -47,6 +52,13 @@ public class MovimentoRestEndpoint {
     @GET
     public Response getAll() {
         return Response.ok(service.findAll()).build();
+    }
+
+    @GET
+    @Path("buscarPorBeneficio/{idBeneficio}")
+    public Response buscarPorBeneficio(@PathParam("idBeneficio") Long id) {
+        Beneficio beneficio = beneficioService.get(id);
+        return  Response.ok(service.buscarPorBeneficio(beneficio)).build();
     }
 
     @GET

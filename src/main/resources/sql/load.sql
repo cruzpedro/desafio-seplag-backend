@@ -18,8 +18,8 @@ INSERT INTO tb_beneficio(id, arquivo, categoria_id, tramitacao_id, usuario_id)
 
 -- MOVIMENTO --
 INSERT INTO tb_movimento(id, data, beneficio_id, tramitacaodestino_id, tramitacaoorigem_id)
-  VALUES (1, '2018-01-01 00:00:00', '111.111.111-11', 2, 1);
+  VALUES (1, '2018-01-01 00:00:00', 1, 2, 1);
 
 -- GENERAL SETUP --
-INSERT INTO tb_generalsetup(id, ds_key, ds_value) VALUES (1, 'CAMINHO_FISICO_ARQUIVOS', '');
-INSERT INTO tb_generalsetup(id, ds_key, ds_value) VALUES (2, 'CAMINHO_HTTP_ARQUIVOS', 'arquivos/');
+INSERT INTO tb_generalsetup(id, ds_key, ds_value) VALUES (1, 'CAMINHO_FISICO_ARQUIVOS', '${JBOSS_HOME}/standalone/tmp/vfs/arquivos}');
+INSERT INTO tb_generalsetup(id, ds_key, ds_value) VALUES (2, 'CAMINHO_HTTP_ARQUIVOS', 'desafio-seplag-backend/arquivos');

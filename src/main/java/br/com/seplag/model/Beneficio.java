@@ -31,7 +31,6 @@ public class Beneficio extends BaseEntity<Long> {
     private Usuario usuario;
 
     @JsonProperty("arquivo")
-    @NotNull(message = "{beneficio.arquivo.notnull}")
     private String arquivo;
 
     public Tramitacao getTramitacao() {

@@ -3,6 +3,8 @@ package br.com.seplag.integration.rest;
 import br.com.seplag.exception.BusinessException;
 import br.com.seplag.model.Beneficio;
 import br.com.seplag.service.BeneficioService;
+import br.com.seplag.service.CategoriaService;
+import br.com.seplag.service.TramitacaoService;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.ejb.Stateless;
@@ -20,9 +22,24 @@ public class BeneficioRestEndPoint {
     @Inject
     private BeneficioService service;
 
+    @Inject
+    private CategoriaService categoriaService;
+
+    @Inject
+    private TramitacaoService tramitacaoService;
+
     @POST
-    public Response save(@Valid Beneficio beneficio, MultipartFormDataInput input) {
-        service.save(beneficio, input);
+    public Response save(Beneficio beneficio) {
+        beneficio.setCategoria(categoriaService.get(beneficio.getCategoria().getId()));
+        beneficio.setTramitacao(tramitacaoService.get(beneficio.getTramitacao().getId()));
+        return Response.ok(service.save(beneficio)).build();
+    }
+
+    @POST
+    @Path("{id}/salvarArquivo")
+    @Consumes("multipart/form-data")
+    public Response salvarArquivo(@PathParam("id") Long id, MultipartFormDataInput input) {
+        service.salvarArquivo(id, input);
         return Response.ok().build();
     }
 
@@ -32,7 +49,7 @@ public class BeneficioRestEndPoint {
         if (!id.equals(beneficio.getId())) {
             return Response.status(Response.Status.CONFLICT).entity(beneficio).build();
         }
-        return Response.ok(service.update(beneficio)).build();
+        return Response.ok(service.atualizar(beneficio)).build();
     }
 
     @DELETE

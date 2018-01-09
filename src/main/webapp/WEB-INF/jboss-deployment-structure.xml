@@ -5,7 +5,7 @@
         </exclusions>
         <dependencies>
             <module name="org.jboss.resteasy.resteasy-jackson2-provider" services="import"/>
-            <module name="org.postgresql" />
+            <module name="org.postgres" />
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

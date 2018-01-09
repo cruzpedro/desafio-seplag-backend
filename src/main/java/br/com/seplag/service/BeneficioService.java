@@ -2,7 +2,9 @@ package br.com.seplag.service;
 
 import br.com.seplag.exception.BusinessException;
 import br.com.seplag.model.Beneficio;
+import br.com.seplag.model.Movimento;
 import br.com.seplag.repository.BeneficioRepository;
+import br.com.seplag.repository.MovimentoRepository;
 import br.com.seplag.util.FileUtil;
 import br.com.seplag.util.GeneralSetupUtil;
 import org.apache.commons.io.IOUtils;
@@ -13,6 +15,8 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import java.io.InputStream;
+import java.lang.annotation.Inherited;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -27,17 +31,20 @@ public class BeneficioService extends BaseService<Beneficio, Long>{
     private BeneficioRepository beneficioRepository;
 
     @Inject
+    private MovimentoRepository movimentoRepository;
+
+    @Inject
     private GeneralSetupUtil generalSetupUtil;
 
     @Inject
     private Logger logger;
 
-    public void save(Beneficio beneficio, MultipartFormDataInput input) {
+    public void salvarArquivo(Long id, MultipartFormDataInput input) {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
         List<InputPart> inputParts = uploadForm.get("file");
 
-        Beneficio beneficioSalvo = save(beneficio);
-        inputParts.forEach(i -> saveBeneficioArquivo(beneficioSalvo, i));
+        Beneficio beneficio = get(id);
+        inputParts.forEach(i -> saveBeneficioArquivo(beneficio, i));
     }
 
     private void saveBeneficioArquivo(Beneficio beneficio, InputPart input) {
@@ -62,13 +69,25 @@ public class BeneficioService extends BaseService<Beneficio, Long>{
     }
 
     private void validaArquivo(InputPart i) {
-        if (!Objects.equals(i.getMediaType().getType(), "pdf")) {
+        if (!Objects.equals(i.getMediaType().getSubtype(), "pdf")) {
             throw new BusinessException("É necessário um arquivo do tipo pdf para criar um beneficio.");
         }
+    }
 
-        /*if (FileUtil.getVideoExtensions().stream().noneMatch(ex -> ex.contains(i.getMediaType().getSubtype()))) {
-            throw new BusinessException("É necessário que o arquivo de video seja do tipo " + FileUtil.getVideoExtensions());
-        }*/
+    public Beneficio atualizar(Beneficio beneficio) {
+
+
+        Beneficio beneficioSource = get(beneficio.getId());
+
+        Movimento movimento = new Movimento();
+        movimento.setBeneficio(beneficio);
+        movimento.setData(LocalDateTime.now());
+        movimento.setTramitacaoOrigem(beneficioSource.getTramitacao());
+        movimento.setTramitacaoDestino(beneficio.getTramitacao());
+
+        beneficio = update(beneficio);
+        movimentoRepository.save(movimento);
+        return beneficio;
     }
 
     @Override
